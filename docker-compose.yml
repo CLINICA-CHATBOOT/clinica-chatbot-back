@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  api:
+    container_name: clinica-chatbot-back
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      - ENV=dev
+      - GEMINI_API_KEY=${GEMINI_API_KEY}  # tomado del .env local
+    env_file:
+      - .env
+    restart: always
