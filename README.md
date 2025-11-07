@@ -1,37 +1,37 @@
 🏥 Clínica Chatbot – Backend
 
 Asistente virtual para una clínica médica.
-Este servicio ofrece un chatbot que responde preguntas comunes, permite consultar profesionales y manejar turnos básicos.
+Este servicio ofrece un chatbot que responde preguntas frecuentes, permite consultar profesionales y gestionar turnos básicos.
 
-📂 Estructura general del proyecto
+📁 Estructura del proyecto
 app/
  ├── api/
- │   ├── routes/           # Endpoints (chat, profesionales, etc.)
- │   ├── db/               # Base de datos y seed inicial
- │   ├── models/           # Modelos Pydantic
- │   └── services/         # Reglas, lógica de IA y respuestas
- ├── tests/                # Pruebas unitarias
- ├── main.py               # Punto de inicio del servidor FastAPI
-Dockerfile                 # Imagen para desplegar con Docker
-requirements.txt           # Dependencias del backend
+ │   ├── routes/         # Endpoints (chat, profesionales, etc.)
+ │   ├── db/             # Base de datos y seed inicial
+ │   ├── models/         # Modelos Pydantic
+ │   └── services/       # Lógica de IA y reglas de negocio
+ ├── tests/              # Pruebas unitarias
+ ├── main.py             # Punto de inicio del servidor FastAPI
+Dockerfile               # Imagen para despliegue con Docker
+requirements.txt         # Dependencias del backend
 
 ⚙️ Requisitos previos
 
-Para ejecutar el proyecto podés usar dos formas:
+Podés ejecutar el proyecto de dos formas:
 
-🔹 Opción 1: instalación manual
+🔹 Opción 1 — Instalación manual
 
 Requiere:
 
-Python 3.10 o superior
+Python 3.10+
 
 pip (gestor de paquetes de Python)
 
-🔹 Opción 2: con Docker (recomendado para practicar despliegue)
+🔹 Opción 2 — Con Docker (recomendado)
 
 Requiere:
 
-Docker Desktop o Docker Engine instalado
+Docker Desktop o Docker Engine
 
 Conexión a internet para descargar la imagen base
 
@@ -43,15 +43,17 @@ git clone https://github.com/CLINICA-CHATBOOT/clinica-chatbot-back.git
 cd clinica-chatbot-back
 
 
-2️⃣ Crear un entorno virtual e instalar dependencias:
+2️⃣ Crear entorno virtual e instalar dependencias:
 
 python -m venv venv
-source venv/Scripts/activate  # (en Windows)
-# o source venv/bin/activate   # (en Linux/Mac)
+source venv/Scripts/activate   # Windows
+# o
+source venv/bin/activate       # Linux/Mac
+
 pip install -r requirements.txt
 
 
-3️⃣ (Opcional) Crear archivo .env (si no existe):
+3️⃣ (Opcional) Crear archivo .env:
 
 DB_URL=sqlite:///./clinicadb.sqlite3
 GEMINI_API_KEY=tu_api_key_aqui
@@ -63,9 +65,9 @@ uvicorn app.main:app --reload
 
 
 📍 Servidor disponible en:
-http://127.0.0.1:8000
+👉 http://127.0.0.1:8000
 
-Documentación interactiva: http://127.0.0.1:8000/docs
+📘 Documentación interactiva: http://127.0.0.1:8000/docs
 
 🐳 Ejecución con Docker
 
@@ -79,56 +81,56 @@ docker build -t clinica-chatbot-back .
 docker run -d -p 8000:8000 --name chatbot clinica-chatbot-back
 
 
-3️⃣ Verificar que esté activo:
+3️⃣ Verificar estado:
 
 docker ps
 
 
-4️⃣ Acceder desde el navegador:
-http://localhost:8000/docs
+4️⃣ Acceder desde navegador:
+👉 http://localhost:8000/docs
 
 🧠 Integración con IA (Gemini)
 
-El chatbot utiliza Gemini AI como respaldo cuando no reconoce una intención.
+El chatbot utiliza Gemini AI como respaldo cuando no reconoce la intención del usuario.
 
-Para habilitarlo:
+Pasos para habilitarlo:
 
-Crear una cuenta en Google AI Studio
-.
+Crear cuenta en Google AI Studio
 
-Copiar la API Key.
+Obtener la API Key.
 
-Guardarla en el archivo .env:
+Guardarla en el .env:
 
 GEMINI_API_KEY=tu_api_key
 
 
-La clase encargada de procesar esto está en app/services/responder.py.
+📄 Código responsable:
+app/services/responder.py
 
 🧱 Base de datos
 
-Motor: SQLite (archivo local clinicadb.sqlite3)
+Motor: SQLite (clinicadb.sqlite3)
 
-Ubicación: raíz del proyecto (puede cambiarse por Postgres modificando DB_URL)
+Ubicación: raíz del proyecto (puede cambiarse por Postgres editando DB_URL)
 
 Tablas principales:
 
-specialties → especialidades médicas
+Tabla	Descripción
+specialties	Especialidades médicas
+professionals	Listado de profesionales
+appointments	Turnos (opcional)
 
-professionals → listado de profesionales
-
-appointments → turnos (opcional)
-
-Carga inicial (seed): automática al iniciar el proyecto (app/db/seed.py)
+🔸 Carga inicial (seed): automática al iniciar el proyecto
+📍 Archivo: app/db/seed.py
 
 🔍 Endpoints principales
 Método	Ruta	Descripción
 GET	/	Verifica que la API esté activa
-POST	/chat/respond	Envía mensaje del usuario y recibe respuesta del chatbot
-GET	/directory/specialties	Lista las especialidades disponibles
+POST	/chat/respond	Envía mensaje del usuario y recibe respuesta
+GET	/directory/specialties	Lista especialidades disponibles
 GET	/directory/professionals	Lista o busca profesionales
-POST	/appointments	Crea un turno médico (si está implementado)
-🧪 Ejemplos de uso con curl
+POST	/appointments	Crea turno médico (si está implementado)
+🧪 Ejemplos de uso (curl)
 
 Probar el chat:
 
@@ -141,30 +143,27 @@ Listar especialidades:
 
 curl http://127.0.0.1:8000/directory/specialties
 
-🧰 Scripts útiles
+🧰 Comandos útiles
 Comando	Descripción
 uvicorn app.main:app --reload	Ejecutar servidor local
-pytest	Ejecutar tests automáticos
+pytest	Ejecutar tests
 docker build -t clinica-chatbot-back .	Crear imagen Docker
 docker run -p 8000:8000 clinica-chatbot-back	Ejecutar contenedor
-🧩 Flujo de desarrollo (GitFlow simple)
+🧩 Flujo de desarrollo (GitFlow)
 
-Todos los cambios se hacen en ramas feature/... a partir de develop.
+Cada cambio parte de una rama feature/... desde develop.
 
-Se hacen Pull Requests hacia develop.
+Se crean Pull Requests hacia develop.
 
 Solo versiones estables se fusionan a main.
 
-main está protegida (no se puede pushear directo).
+main está protegida (no se puede pushear directamente).
 
 👥 Equipo
-Rol	                    Nombre	               
-Coordinador técnico	    Federico Musa	
-Desarrolladora  	    Tamara Paez	
+Rol	Nombre
+Coordinador técnico	Federico Musa
+Desarrolladora	Tamara Páez
 💡 Notas finales
 
-El objetivo del proyecto es educativo: practicar trabajo en equipo, manejo de ramas, integración IA y despliegue con Docker.
-
-El código busca ser claro, reproducible y sin dependencias innecesarias.
-
-Puede expandirse fácilmente con un front React o una app de escritorio.
+El objetivo del proyecto es educativo: practicar trabajo en equipo, ramas, integración con IA y despliegue con Docker.
+El código busca ser claro, reproducible y modular, facilitando futuras ampliaciones (por ejemplo, front en React o app de escritorio).
