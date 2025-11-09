@@ -15,10 +15,10 @@ def health():
     return {"status": "ok"}
 
 # Montar archivos estáticos (CSS, JS, imágenes)
-app.mount("/assets", StaticFiles(directory="app/Assets"), name="assets")
+app.mount("/assets", StaticFiles(directory="../clinica-chatbot-front/app/Assets"), name="assets")
 
 # Configurar plantillas HTML
-templates = Jinja2Templates(directory="app/Templates")
+templates = Jinja2Templates(directory="../clinica-chatbot-front/app/Templates")
 
 # Ruta principal que devuelve index.html
 @app.get("/", response_class=HTMLResponse)
