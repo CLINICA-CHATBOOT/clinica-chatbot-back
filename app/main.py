@@ -15,7 +15,7 @@ def health():
     return {"status": "ok"}
 
 # Montar archivos estáticos (CSS, JS, imágenes)
-app.mount("/assets", StaticFiles(directory="../clinica-chatbot-front/app/Assets"), name="assets")
+app.mount("/Assets", StaticFiles(directory="../clinica-chatbot-front/app/Assets"), name="assets")
 
 # Configurar plantillas HTML
 templates = Jinja2Templates(directory="../clinica-chatbot-front/app/Templates")
