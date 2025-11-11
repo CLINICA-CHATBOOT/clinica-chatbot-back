@@ -21,11 +21,12 @@ def chat_mensaje(message: Message):
     user_message = message.content.lower()
 
     if "especialidad" in user_message or "especialidades" in user_message:
-        return {"response": f"Las especialidades disponibles son: {', '.join(DIRECTORIO.keys())}"}
-
+        lista = "\n - " + "\n - ".join(DIRECTORIO.keys())
+        return {"response": f"Las especialidades disponibles son:\n{lista}"}
+    
     for especialidad, profesionales in DIRECTORIO.items():
-        if especialidad.lower() in user_message:
-            return {"response": f"Los profesionales en {especialidad} son: {', '.join(profesionales)}"}
+        lista = "\n - " + "\n - ".join(profesionales)
+        return {"response": f"Los profesionales en {especialidad} son:\n{lista}"}
 
     response = get_gemini_reply(message.content)
     return {"response": response}
