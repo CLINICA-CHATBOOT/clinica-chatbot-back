@@ -8,6 +8,6 @@ class ResponseMessage(BaseModel):
     response: str
 
 class Appointment(BaseModel):
-    professional: str
+    professional_id: int
     patient_name: str
-    date: datetime
+    appointment_date: datetime
