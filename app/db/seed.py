@@ -7,15 +7,15 @@ def seed_database():
     tabla_appointments()
 
     conexion = get_conexion()
-    conexion.execute("SELECT COUNT(*) as count FROM specialties")
-    if conexion.fetchone()["count"] == 0:
+    cursor = conexion.execute("SELECT COUNT(*) as count FROM specialties")
+    if cursor.fetchone()["count"] == 0:
         specialties = ["Cardiología", "Dermatología", "Neurología", "Pediatría"]
         for specialty in specialties:
             conexion.execute("INSERT INTO specialties (name) VALUES (?)", (specialty,))
         conexion.commit()
     
-    conexion.execute("SELECT COUNT(*) as count FROM professionals")
-    if conexion.fetchone()["count"] == 0:
+    cursor = conexion.execute("SELECT COUNT(*) as count FROM professionals")
+    if cursor.fetchone()["count"] == 0:
         professionals = [
             ("Dr. Juan Rodríguez", 1),
             ("Dra. Marta Pérez", 1),
