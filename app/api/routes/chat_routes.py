@@ -171,6 +171,7 @@ def crear_turno_medico(appointment: Appointment):
         conexion.close()
         raise HTTPException(status_code=404, detail="Profesional no encontrado")
     
+    # validar que no exista ya un turno en esa fecha/hora para ese profesional
     cursor = conexion.execute(
         "SELECT id FROM appointments WHERE professional_id = ? AND appointment_date = ?",
         (appointment.professional_id, appointment.appointment_date)
