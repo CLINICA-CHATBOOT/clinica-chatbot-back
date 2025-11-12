@@ -1,4 +1,4 @@
-from database import get_conexion
+from app.db.database import get_conexion
 
 def tabla_specialties():
     conexion = get_conexion()
