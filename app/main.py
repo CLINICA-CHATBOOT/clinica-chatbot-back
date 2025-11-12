@@ -2,8 +2,10 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
 from app.api.routes.chat_routes import router as chat_router
+from app.db.seed import seed_database
+
+seed_database()
 
 app = FastAPI()
 

@@ -1,5 +1,5 @@
-from database import get_conexion
-from db.models import tabla_specialties, tabla_professionals, tabla_appointments
+from app.db.database import get_conexion
+from app.db.models import tabla_specialties, tabla_professionals, tabla_appointments
 
 def seed_database():
     tabla_specialties()
